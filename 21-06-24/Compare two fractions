@@ -1,0 +1,32 @@
+class Solution {
+public:
+    std::string compareFrac(std::string str) {
+        // Splitting the input string by ', ' to separate the two fractions
+        size_t commaPos = str.find(", ");
+        std::string frac1 = str.substr(0, commaPos);
+        std::string frac2 = str.substr(commaPos + 2);
+
+        // Extracting numerator and denominator of the first fraction
+        size_t slashPos1 = frac1.find('/');
+        int a = std::stoi(frac1.substr(0, slashPos1));
+        int b = std::stoi(frac1.substr(slashPos1 + 1));
+
+        // Extracting numerator and denominator of the second fraction
+        size_t slashPos2 = frac2.find('/');
+        int c = std::stoi(frac2.substr(0, slashPos2));
+        int d = std::stoi(frac2.substr(slashPos2 + 1));
+
+        // Calculating the value of each fraction
+        double value1 = static_cast<double>(a) / b;
+        double value2 = static_cast<double>(c) / d;
+
+        // Comparing the two values
+        if (value1 > value2) {
+            return frac1;
+        } else if (value1 < value2) {
+            return frac2;
+        } else {
+            return "equal";
+        }
+    }
+};
