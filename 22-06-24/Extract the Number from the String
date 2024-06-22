@@ -1,0 +1,25 @@
+class Solution {
+  public:
+    long long ExtractNumber(std::string sentence) {
+        std::istringstream iss(sentence);
+        std::string word;
+        long long maxNumber = -1;
+
+        while (iss >> word) {
+            bool isNumber = true;
+            for (char c : word) {
+                if (!isdigit(c) || c == '9') {
+                    isNumber = false;
+                    break;
+                }
+            }
+            if (isNumber) {
+                long long num = std::stoll(word);
+                if (num > maxNumber) {
+                    maxNumber = num;
+                }
+            }
+        }
+        return maxNumber;
+    }
+};
