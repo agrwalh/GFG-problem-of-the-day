@@ -1,0 +1,25 @@
+class Solution {
+    public Node deleteNode(Node head, int x) {
+        Node temp = head;
+        
+        // traverse all the nodes until and unless you find the desired position
+        while (x != 1) {
+            temp = temp.next;
+            x--;
+        }
+        
+        // if the node to be deleted is the first one
+        if (temp == head)  
+            return head.next;
+        
+        // if the node to be deleted is not the last node
+        if (temp.next != null)     
+            temp.next.prev = temp.prev;
+        
+        // if the node to be deleted is not the first node
+        if (temp.prev != null)     
+            temp.prev.next = temp.next;
+        
+        return head;
+    }
+}
