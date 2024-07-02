@@ -1,0 +1,15 @@
+class Solution {
+  public:
+    bool compute(Node* head) {
+        // Your code goes here
+        string str="";
+        while(head!=NULL){
+            str+=head->data;
+            head=head->next;
+            
+        }
+        string st=str;
+        reverse(st.begin(),st.end());
+        return st==str;
+    }
+};
