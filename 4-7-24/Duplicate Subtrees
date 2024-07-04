@@ -1,0 +1,34 @@
+class Solution {
+    // Map having String as key and Integer as value to store the frequency of subtrees
+    Map<String, Integer> mp = new HashMap<>();
+
+    // Function that converts a binary tree into a string
+    String solve(Node root, List<Node> ans) {
+        if (root == null) {
+            return "";
+        }
+
+        String subtree = "";
+        
+        // Create hash of complete subtree rooted at root
+        subtree = root.data + ",";
+        subtree += solve(root.left, ans) + ",";
+        subtree += solve(root.right, ans);
+
+        // Push the newly formed string into the map
+        mp.put(subtree, mp.getOrDefault(subtree, 0) + 1);
+
+        // If this string was previously in the map it means it is repeating
+        if (mp.get(subtree) == 2) {
+            ans.add(root);
+        }
+
+        return subtree;
+    }
+    public List<Node> printAllDups(Node root) {
+        // code here
+        List<Node> ans = new ArrayList<>();
+        solve(root, ans);
+        return ans;
+    }
+}
