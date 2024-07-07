@@ -1,0 +1,28 @@
+class Solution {
+  public:
+  bool solve(Node *node, int target, vector<int> &ans){
+      if(node==NULL)
+      return false;
+      
+      if(node->data==target)
+      return true;
+      
+      bool left=solve(node->left, target, ans);
+      bool right=solve(node->right, target, ans);
+      
+      if(left || right)
+      {
+          ans.push_back(node->data);
+          return true;
+      }
+      
+      return false;
+  }
+    // Function should return all the ancestor of the target node
+    vector<int> Ancestors(struct Node *root, int target) {
+        // Code here
+        vector<int> ans;
+        solve(root, target, ans);
+        return ans;
+    }
+};
