@@ -1,0 +1,19 @@
+class Solution {
+  public:
+    Node* bst(vector<int>& nums,int left,int right){
+
+        if(left>right){
+            return NULL;
+        }
+        int mid= left + (right-left)/2;
+        Node* node =new Node(nums[mid]);
+        node->left=bst(nums,left,mid-1);
+        node->right=bst(nums,mid+1,right);
+    }
+    
+    Node* sortedArrayToBST(vector<int>& nums) {
+        // Code here
+        Node* root=bst(nums,0,nums.size()-1);
+        return root;
+    }
+};
