@@ -1,0 +1,16 @@
+class Solution {
+  public:
+
+      string removeDups(string str) {
+        // Your code goes here
+        string ans="";
+        bool temp[26];
+        for(auto x:str){
+            if(!temp[x-'a']){
+                ans+=x;
+                temp[x-'a']=true;
+            }
+        }
+        return ans;
+    }
+};
