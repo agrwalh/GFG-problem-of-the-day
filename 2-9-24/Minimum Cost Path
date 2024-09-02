@@ -1,0 +1,57 @@
+class Solution
+{
+public:
+    // Function to return the minimum cost to reach the bottom-right cell from the top-left cell.
+    int minimumCostPath(vector<vector<int>>& grid) 
+    {
+        int n = grid.size();
+        
+        // Min-heap priority queue to store cells and their cost.
+        priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<pair<int, pair<int, int>>>> pq;
+
+        // Distance matrix to store the minimum cost to reach each cell.
+        vector<vector<int>> dist(n, vector<int>(n, INT_MAX));
+
+        // Directions for moving left, right, up, down.
+        int dx[] = {0, 0, -1, 1};
+        int dy[] = {-1, 1, 0, 0};
+
+        // Start with the top-left cell (0,0).
+        pq.push({grid[0][0], {0, 0}});
+        dist[0][0] = grid[0][0];
+
+        while (!pq.empty()) {
+            // Extract the minimum cost cell from the priority queue
+            pair<int, pair<int, int>> current = pq.top();
+            pq.pop();
+
+            int current_cost = current.first;
+            int x = current.second.first;
+            int y = current.second.second;
+
+            // If we reached the bottom-right cell, return the cost.
+            if (x == n - 1 && y == n - 1) {
+                return current_cost;
+            }
+
+            // Explore the four possible directions.
+            for (int i = 0; i < 4; i++) {
+                int new_x = x + dx[i];
+                int new_y = y + dy[i];
+
+                // Check if the new cell is within bounds.
+                if (new_x >= 0 && new_x < n && new_y >= 0 && new_y < n) {
+                    int new_cost = current_cost + grid[new_x][new_y];
+                    
+                    // If a shorter path to the cell is found, update the distance and push to the queue.
+                    if (new_cost < dist[new_x][new_y]) {
+                        dist[new_x][new_y] = new_cost;
+                        pq.push({new_cost, {new_x, new_y}});
+                    }
+                }
+            }
+        }
+
+        return dist[n-1][n-1]; // Return the cost to reach the bottom-right cell.
+    }
+};
